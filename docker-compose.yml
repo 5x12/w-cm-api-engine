@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+    web:
+        build: .
+        restart: always
+        container_name: api-test
+        ports:
+        - "8081:8081"
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"
+        volumes:
+            - ./:/app

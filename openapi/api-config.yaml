@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Test City API
+  description: OpenAPI to access model predictions.
+  version: 1.0.0
+servers:
+  - url: 'https://localhost'
+tags:
+  - name: api-controller
+    description: API Controller
+paths:
+  /features/{features}/model/{model}/prediction:
+    get:
+      tags:
+        - api-controller
+      operationId: src.core.predict
+      parameters:
+        - name: features
+          in: path
+          description: "Features the model predicts with."
+          required: true
+          schema:
+            type: array
+            items:
+              type: number
+        - name: model
+          in: path
+          description: "Model type."
+          required: true
+          schema:
+            type: string      
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Predict'
+        404:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Predict'
+
+components:
+  schemas:
+    Predict:
+      title: Predict
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: integer
+        model:
+          type: string
